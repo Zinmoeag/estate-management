@@ -6,8 +6,11 @@ import 'reflect-metadata';
 
 import './config/di.container';
 // initialize service
-import './app/bootstrap';
+// import './app/bootstrap';
 
+Bootstrap.init();
+
+import Bootstrap from 'app/bootstrap';
 import jobQueue from 'app/worker/queues/jobQueue';
 import bodyParser from 'body-parser';
 import AppConfig from 'config/env/app-config';

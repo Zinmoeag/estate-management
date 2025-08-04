@@ -1,12 +1,24 @@
 import { JobWorker } from './worker';
 
-async function bootstrap() {
-  /**
-   * worker register
-   */
-  const workers = [JobWorker.run()];
+class Bootstrap {
+  private static _instance: Bootstrap;
 
-  Promise.all(workers);
+  /**
+   * service worker
+   * register worker heres
+   */
+  private static workers = [JobWorker];
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private constructor() {}
+
+  static async init() {
+    if (!this._instance) {
+      this._instance = new Bootstrap();
+      await Promise.all(this.workers.map((worker) => worker.run()));
+    }
+    return this._instance;
+  }
 }
 
-bootstrap();
+export default Bootstrap;
