@@ -1,12 +1,10 @@
-import './config/env/dotenv';
+// import './config/env/dotenv';
 import 'module-alias/register';
 
 import './config/passport.config';
 import 'reflect-metadata';
 
 import './config/di.container';
-// initialize service
-// import './app/bootstrap';
 
 Bootstrap.init();
 

@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+
 import { JobWorker } from './worker';
 
 class Bootstrap {
@@ -15,6 +17,9 @@ class Bootstrap {
   static async init() {
     if (!this._instance) {
       this._instance = new Bootstrap();
+
+      dotenv.config();
+      // initailize worker
       await Promise.all(this.workers.map((worker) => worker.run()));
     }
     return this._instance;
