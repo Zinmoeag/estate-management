@@ -1,0 +1,237 @@
+generator client {
+    provider = "prisma-client-js"
+    output   = "../generated/prisma"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id                  Int                 @id @default(autoincrement())
+    username            String
+    email               String              @unique
+    photo               String?
+    password            String
+    roleId              Int
+    createdAt           DateTime            @default(now())
+    updatedAt           DateTime            @updatedAt
+    approvedAgents      AgentProfile[]      @relation("ApprovedByUser")
+    agentProfile        AgentProfile?       @relation("AgentUser")
+    activities          AllActivity[]
+    ownerProfile        OwnerProfile?
+    passwordResetTokens PasswordResetToken? @relation("ResetToken")
+    approvedPosts       Post[]              @relation("PostAdmin")
+    posts               Post[]              @relation("PostUser")
+    properties          Property[]          @relation("UserProperty")
+    ratings             Rating[]
+    refreshTokens       RefreshToken[]      @relation("TokenUser")
+    role                Role                @relation(fields: [roleId], references: [id])
+    photos              UserPhoto[]
+
+    @@map("user")
+}
+
+model PasswordResetToken {
+    id        Int      @id @default(autoincrement())
+    token     String   @unique
+    expiresAt DateTime
+    userId    Int      @unique
+    createdAt DateTime @default(now())
+    user      User     @relation("ResetToken", fields: [userId], references: [id])
+
+    @@map("password_reset_token")
+}
+
+model RefreshToken {
+    id        Int      @id @default(autoincrement())
+    token     String   @unique
+    userId    Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    user      User     @relation("TokenUser", fields: [userId], references: [id])
+
+    @@map("refresh_token")
+}
+
+model AgentProfile {
+    id            Int                @id @default(autoincrement())
+    userId        Int                @unique
+    cnaNumber     String
+    licenseNumber Int                @map("New")
+    approvedAt    DateTime?
+    approvedById  Int?
+    status        AgentProfileStatus @default(Pending)
+    createdAt     DateTime           @default(now())
+    updatedAt     DateTime           @updatedAt
+    approvedBy    User?              @relation("ApprovedByUser", fields: [approvedById], references: [id])
+    user          User               @relation("AgentUser", fields: [userId], references: [id])
+    ratings       Rating[]
+
+    @@map("agent_profile")
+}
+
+model Post {
+    id          Int           @id @default(autoincrement())
+    description String
+    userId      Int
+    status      PostStatus    @default(Pending)
+    adminId     Int?
+    phone       String
+    socialLink  String?
+    createdAt   DateTime      @default(now())
+    updatedAt   DateTime      @updatedAt
+    type        PostType
+    activities  AllActivity[]
+    admin       User?         @relation("PostAdmin", fields: [adminId], references: [id])
+    user        User          @relation("PostUser", fields: [userId], references: [id])
+    property    Property[]
+
+    @@map("post")
+}
+
+enum PostStatus {
+    Pending
+    Success
+}
+
+model Role {
+    id              Int              @id @default(autoincrement())
+    value           String
+    name            RoleName         @unique
+    rolePermissions RolePermission[] @relation("permissions")
+    permissions     Permission[]
+    users           User[]
+
+    @@map("role")
+}
+
+model RolePermission {
+    roleId       Int
+    permissionId Int
+    permission   Permission @relation("roles", fields: [permissionId], references: [id])
+    role         Role       @relation("permissions", fields: [roleId], references: [id])
+
+    @@id([roleId, permissionId])
+}
+
+model Property {
+    id             Int             @id @default(autoincrement())
+    ownerId        Int
+    propertyTypeId Int
+    bedRoom        Int
+    bathRoom       Int
+    latitude       String
+    longitude      String
+    buildingNumber String
+    street         String
+    floor          Int?
+    township       String
+    region         String
+    length         Int             @map("lenth")
+    width          Int
+    currency       Int
+    createdAt      DateTime        @default(now())
+    postId         Int
+    updatedAt      DateTime        @updatedAt
+    owner          User            @relation("UserProperty", fields: [ownerId], references: [id])
+    post           Post            @relation(fields: [postId], references: [id], onDelete: Cascade)
+    propertyType   PropertyType    @relation(fields: [propertyTypeId], references: [id], onDelete: Cascade)
+    photos         PropertyPhoto[]
+
+    @@map("property")
+}
+
+model Permission {
+    id              Int              @id @default(autoincrement())
+    roleId          Int
+    action          String
+    resource        String
+    rolePermissions RolePermission[] @relation("roles")
+    role            Role             @relation(fields: [roleId], references: [id])
+
+    @@map("permission")
+}
+
+model PropertyPhoto {
+    id         Int      @id @default(autoincrement())
+    path       String
+    propertyId Int
+    property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+    @@map("property_photo")
+}
+
+model AllActivity {
+    id        Int      @id @default(autoincrement())
+    userId    Int
+    postId    Int
+    action    String
+    createdAt DateTime @default(now())
+    post      Post     @relation(fields: [postId], references: [id])
+    user      User     @relation(fields: [userId], references: [id])
+
+    @@map("all_activity")
+}
+
+model PropertyType {
+    id         Int        @id @default(autoincrement())
+    name       String     @unique
+    properties Property[]
+
+    @@map("property_type")
+}
+
+model OwnerProfile {
+    id        Int      @id @default(autoincrement())
+    nrcNo     String
+    address   String
+    userId    Int      @unique
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    user      User     @relation(fields: [userId], references: [id])
+    phone     String
+
+    @@map("owner_profile")
+}
+
+model UserPhoto {
+    id     Int    @id @default(autoincrement())
+    path   String
+    userId Int
+    user   User   @relation(fields: [userId], references: [id])
+
+    @@map("user_photo")
+}
+
+model Rating {
+    id        Int          @id @default(autoincrement())
+    point     Int
+    userId    Int
+    agentId   Int
+    createdAt DateTime     @default(now())
+    updatedAt DateTime     @updatedAt
+    agent     AgentProfile @relation(fields: [agentId], references: [id])
+    user      User         @relation(fields: [userId], references: [id])
+
+    @@map("rating")
+}
+
+enum AgentProfileStatus {
+    Pending
+    Approved
+    Rejected
+}
+
+enum RoleName {
+    Admin
+    User
+    Agent
+}
+
+enum PostType {
+    Sale
+    Rent
+    Lease
+}
