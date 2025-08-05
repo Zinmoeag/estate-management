@@ -1,7 +1,7 @@
+import { IAuthRepository } from '@modules/user/domain/repositories/IAuthRepository';
+import { generateTokens } from '@utils/auth/auth.service';
+import { AppError } from '@utils/error-handling';
 import bcrypt from 'bcrypt';
-import { IAuthRepository } from 'modules/user/domain/repositories/IAuthRepository';
-import { generateTokens } from 'utils/auth/auth.service';
-import { AppError } from 'utils/error-handling';
 
 export class LoginUseCase {
   // eslint-disable-next-line no-unused-vars

@@ -1,9 +1,9 @@
+import { prisma } from '@libs/prismaClients';
+import { Token } from '@modules/user/domain/entitiies/Token.entity';
+import { User } from '@modules/user/domain/entitiies/User.entity';
+import { IAuthRepository } from '@modules/user/domain/repositories/IAuthRepository';
+import { AppError } from '@utils/error-handling';
 import bcrypt from 'bcrypt';
-import { prisma } from 'libs/prismaClients';
-import { Token } from 'modules/user/domain/entitiies/Token.entity';
-import { User } from 'modules/user/domain/entitiies/User.entity';
-import { IAuthRepository } from 'modules/user/domain/repositories/IAuthRepository';
-import { AppError } from 'utils/error-handling';
 
 export class AuthRepository implements IAuthRepository {
   async create(data: any): Promise<User> {

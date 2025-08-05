@@ -1,5 +1,5 @@
-import { IAuthRepository } from 'modules/user/domain/repositories/IAuthRepository';
-import { AppError, catchErrorAsync } from 'utils/error-handling';
+import { IAuthRepository } from '@modules/user/domain/repositories/IAuthRepository';
+import { AppError, catchErrorAsync } from '@utils/error-handling';
 
 import { UserDTO } from '../../dtos/UserDTO';
 

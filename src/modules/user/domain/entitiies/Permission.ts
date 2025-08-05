@@ -1,12 +1,12 @@
 export class Permission {
-  id: Number;
   action: string;
+  id: Number;
   resource: string;
   // roles?: RolePermission[];
 
   constructor(params: {
-    id: Number;
     action: string;
+    id: Number;
     resource: string;
     // roles?: RolePermission[];
   }) {

@@ -1,4 +1,4 @@
-import { IAuthRepository } from 'modules/user/domain/repositories/IAuthRepository';
+import { IAuthRepository } from '@modules/user/domain/repositories/IAuthRepository';
 
 export class LogoutUseCase {
   // eslint-disable-next-line no-unused-vars

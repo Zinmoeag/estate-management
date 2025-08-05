@@ -1,12 +1,6 @@
+import { AppError, errorKinds } from '@utils/error-handling';
 import { Router } from 'express';
 import { NextFunction, Request, Response } from 'express';
-import { AppError, errorKinds } from 'utils/error-handling';
-
-import agentRouter from './agentRouter';
-import authRouter from './authRouter';
-import ownerRouter from './ownerRouter';
-import postRouter from './postRouter';
-import userRouter from './userRouter';
 
 const router = Router();
 router.get('/healthCheck', async (req: Request, res: Response) => {
@@ -14,12 +8,7 @@ router.get('/healthCheck', async (req: Request, res: Response) => {
 });
 
 //register route
-
-router.use('/owners', ownerRouter);
-router.use('/users', userRouter);
-router.use('/auth', authRouter);
-router.use('/agent-profiles', agentRouter);
-router.use('/posts', postRouter);
+// router.use('/auth', authRouter);
 
 //404 handler
 router.use((req: Request, res: Response, next: NextFunction) => {

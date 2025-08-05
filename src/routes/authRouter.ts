@@ -1,10 +1,10 @@
-import { Router } from 'express';
-import validationMiddleware from 'middlewares/validationMiddleware';
-import { AuthController } from 'modules/user/api/controllers/AuthController';
+import validationMiddleware from '@middlewares/validationMiddleware';
+import { AuthController } from '@modules/user/api/controllers/AuthController';
 import {
   LoginSchema,
   RegisterSchema,
-} from 'modules/user/api/middlewares/authValidation';
+} from '@modules/user/api/middlewares/authValidation';
+import { Router } from 'express';
 import passport from 'passport';
 
 const authController = new AuthController();

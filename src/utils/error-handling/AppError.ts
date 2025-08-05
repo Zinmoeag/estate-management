@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
+import { StatusCode } from '@config/Status';
 import { Response } from 'express';
-
-import { StatusCode } from '../../config/Status';
 
 interface errorPayload<T extends payload> {
   errors?: T | {};

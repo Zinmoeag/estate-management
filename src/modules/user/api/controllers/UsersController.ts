@@ -1,7 +1,7 @@
+import GetUserListUseCase from '@modules/user/applications/usecase/GetUserListUseCase';
+import { UserRepository } from '@modules/user/infrastructures/repositories/UserRepository';
+import { AppError, errorKinds } from '@utils/error-handling';
 import { NextFunction, Request, Response } from 'express';
-import GetUserListUseCase from 'modules/user/applications/usecase/GetUserListUseCase';
-import { UserRepository } from 'modules/user/infrastructures/repositories/UserRepository';
-import { AppError, errorKinds } from 'utils/error-handling';
 
 import { GetUserListParamType } from '../params/getUserlistParamSchema';
 
