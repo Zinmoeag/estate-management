@@ -1,7 +1,7 @@
-import { AuthRepository } from 'modules/user/infrastructures/repositories/AuthRepository';
+import { AuthRepository } from '@modules/user/infrastructures/repositories/AuthRepository';
+import { ACCESS_TOKEN_PUBLIC_KEY } from '@utils/auth/jwt';
 import passport from 'passport';
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
-import { ACCESS_TOKEN_PUBLIC_KEY } from 'utils/auth/jwt';
 
 import { AuthUserDTO } from '../dtos/AuthUserDTO';
 

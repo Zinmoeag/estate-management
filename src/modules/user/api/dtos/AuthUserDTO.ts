@@ -1,5 +1,3 @@
-import { User } from '../../../../entities/index';
-
 export class AuthUserDTO {
   createdAt: Date;
   email: string;
@@ -8,7 +6,7 @@ export class AuthUserDTO {
   updatedAt: Date;
   username: string;
 
-  constructor(user: User) {
+  constructor(user: any) {
     this.id = user.id;
     this.username = user.username;
     this.email = user.email;

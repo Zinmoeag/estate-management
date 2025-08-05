@@ -1,9 +1,8 @@
+import { AuthRepository } from '@modules/user/infrastructures/repositories/AuthRepository';
+import { AppError, errorKinds } from '@utils/error-handling';
 import bcrypt from 'bcrypt';
-import { AuthRepository } from 'modules/user/infrastructures/repositories/AuthRepository';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-
-import { AppError, errorKinds } from '../../../../utils/error-handling';
 
 const authRepository = new AuthRepository();
 

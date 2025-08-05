@@ -1,8 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
-    "rootDir": "src",
-    "outDir": "dist",
     "moduleResolution": "node",
     "target": "es2020",
     "module": "commonjs",
@@ -10,7 +7,23 @@
     "resolveJsonModule": true,
     "strict": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "sourceMap": true, // Generate source maps for debugging
+    "outDir": "dist", // Output compiled files to the `dist` folder
+    "rootDir": "src", // Define the root directory for your source files
+    "baseUrl": ".", // Required for path aliases
+    "skipLibCheck": true, // Skip type-checking of library files
+    "paths": {
+      // Define path aliases
+      "@utils/*": ["src/utils/*"],
+      "@libs/*": ["src/libs/*"],
+      "@modules/*": ["src/modules/*"],
+      "@app/*": ["src/app/*"],
+      "@config/*": ["src/config/*"],
+      "@routes/*": ["src/routes/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@helpers/*": ["src/app/helpers/*"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.js"],
   "exclude": ["node_modules", "dist", "tests"]

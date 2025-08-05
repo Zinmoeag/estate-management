@@ -4,7 +4,7 @@
   "main": "./src/server.ts",
   "scripts": {
     "build": "rimraf ./dist && tsc",
-    "start": "npm run build && node ./dist/server.js",
+    "start": "npm run build && ts-node --project ./tsconfig.json -r tsconfig-paths/register dist/server.js",
     "dev": "tsx watch --env-file=.env.development ./src/server.ts"
   },
   "prisma": {
@@ -35,6 +35,7 @@
     "rimraf": "^6.0.1",
     "sharp": "^0.34.2",
     "socket.io": "^4.8.1",
+    "tsconfig-paths": "^4.2.0",
     "tsyringe": "^4.10.0",
     "zod": "^3.25.67"
   },
@@ -59,15 +60,5 @@
     "tsx": "^4.20.3",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.36.0"
-  },
-  "_moduleAliases": {
-    "routes": "dist/routes",
-    "config": "dist/config",
-    "utils": "dist/utils",
-    "modules": "dist/modules",
-    "middlewares": "dist/middlewares",
-    "entities": "dist/entities",
-    "helpers": "dist/helpers",
-    "libs": "dist/libs"
   }
 }

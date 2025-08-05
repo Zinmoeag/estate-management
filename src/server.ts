@@ -1,22 +1,17 @@
-// import './config/env/dotenv';
-import 'module-alias/register';
-
-import './config/passport.config';
-import 'reflect-metadata';
-
-import './config/di.container';
-
+import 'tsconfig-paths/register';
+import Bootstrap from '@app/bootstrap';
 Bootstrap.init();
 
-import Bootstrap from 'app/bootstrap';
-import jobQueue from 'app/worker/queues/jobQueue';
+import '@config/passport.config';
+import 'reflect-metadata';
+import jobQueue from '@app/worker/queues/jobQueue';
+import AppConfig from '@config/env/app-config';
+import router from '@routes/index';
 import bodyParser from 'body-parser';
-import AppConfig from 'config/env/app-config';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import passport from 'passport';
-import router from 'routes';
 
 const app = express();
 const port = AppConfig.getConfig('PORT');

@@ -1,7 +1,7 @@
 import customEnvironment from './custom-env';
 
-type ConfigKeys = keyof typeof customEnvironment;
-type Configs = Record<ConfigKeys, string>;
+export type ConfigKeys = keyof typeof customEnvironment;
+export type Configs = Record<ConfigKeys, string>;
 
 class AppConfig {
   private static _instance: AppConfig;
@@ -38,15 +38,5 @@ class AppConfig {
     return this._instance;
   }
 }
-
-// Register configuration
-AppConfig.register(
-  Object.fromEntries(
-    Object.entries(customEnvironment).map(([key, value]) => [
-      key,
-      value !== undefined ? String(value) : value,
-    ])
-  ) as Configs
-);
 
 export default AppConfig;
