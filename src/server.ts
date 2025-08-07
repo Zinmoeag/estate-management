@@ -1,5 +1,5 @@
-// import 'tsconfig-paths/register';
-import 'module-alias/register';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 import Bootstrap from '@/app/bootstrap';
 Bootstrap.init();
@@ -41,4 +41,4 @@ app.use(cors());
 app.use(cookieParser());
 app.use('/api', router);
 
-app.listen(port, () => console.log(`Server is running on port ${port}`));
+app.listen(port, () => console.log(`Server is running on ${port}`));
