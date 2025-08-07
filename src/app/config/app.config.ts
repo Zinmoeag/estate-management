@@ -1,4 +1,4 @@
-import customEnvironment from './custom-env';
+import customEnvironment from './env/custom-env';
 
 export type ConfigKeys = keyof typeof customEnvironment;
 export type Configs = Record<ConfigKeys, string>;

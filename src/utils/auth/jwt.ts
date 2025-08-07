@@ -2,7 +2,7 @@ import jwt, { SignOptions } from 'jsonwebtoken';
 
 import { AppError, errorKinds } from '@/utils/error-handling';
 
-import ENV from '../../config/env/custom-env';
+import ENV from '../../app/config/env/custom-env';
 
 console.log(ENV);
 

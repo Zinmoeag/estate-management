@@ -1,7 +1,8 @@
 import dotenv from 'dotenv';
 
-import AppConfig, { Configs } from '@/config/env/app-config';
-import customEnvironment from '@/config/env/custom-env';
+import AppConfig, { Configs } from '@/app/config/app.config';
+import customEnvironment from '@/app/config/env/custom-env';
+import { AppError, catchError, errorKinds } from '@/utils/error-handling';
 
 import { JobWorker } from './worker';
 import Worker from './worker/workers/worker.interface';
@@ -25,14 +26,23 @@ class Bootstrap {
       dotenv.config();
 
       // Register configuration
-      AppConfig.register(
-        Object.fromEntries(
-          Object.entries(customEnvironment).map(([key, value]) => [
-            key,
-            value !== undefined ? String(value) : value,
-          ])
-        ) as Configs
+      const [error] = catchError(() =>
+        AppConfig.register(
+          Object.fromEntries(
+            Object.entries(customEnvironment).map(([key, value]) => {
+              // env load
+              if (value === undefined) {
+                throw AppError.new(
+                  errorKinds.internalServerError,
+                  `env load error: ${key} is undefined`
+                );
+              }
+              return [key, String(value)];
+            })
+          ) as Configs
+        )
       );
+      if (error) AppError.new(errorKinds.internalServerError, 'env load error');
 
       // initailize worker
       await Promise.all(this.workers.map((worker) => worker.run()));

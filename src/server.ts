@@ -4,7 +4,7 @@ dotenv.config();
 import Bootstrap from '@/app/bootstrap';
 Bootstrap.init();
 
-import '@/config/passport.config';
+import '@/app/config/passport.config';
 import 'reflect-metadata';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
@@ -12,8 +12,8 @@ import cors from 'cors';
 import express from 'express';
 import passport from 'passport';
 
+import AppConfig from '@/app/config/app.config';
 import jobQueue from '@/app/worker/queues/jobQueue';
-import AppConfig from '@/config/env/app-config';
 import router from '@/routes/index';
 
 const app = express();

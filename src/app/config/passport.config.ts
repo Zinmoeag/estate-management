@@ -1,7 +1,7 @@
 import passport from 'passport';
 
-import '../modules/user/api/strategies/passport-jwt';
-import '../modules/user/api/strategies/passport-local';
+import '../../modules/user/api/strategies/passport-jwt';
+import '../../modules/user/api/strategies/passport-local';
 
 passport.serializeUser((user, done) => {
   done(null, user);
