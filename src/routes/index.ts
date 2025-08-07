@@ -1,6 +1,7 @@
-import { AppError, errorKinds } from '@utils/error-handling';
 import { Router } from 'express';
 import { NextFunction, Request, Response } from 'express';
+
+import { AppError, errorKinds } from '@/utils/error-handling';
 
 const router = Router();
 router.get('/healthCheck', async (req: Request, res: Response) => {

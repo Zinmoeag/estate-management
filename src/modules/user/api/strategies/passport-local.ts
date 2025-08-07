@@ -1,5 +1,5 @@
-import { AuthRepository } from '@modules/user/infrastructures/repositories/AuthRepository';
-import { AppError, errorKinds } from '@utils/error-handling';
+import { AuthRepository } from '@/modules/user/infrastructures/repositories/AuthRepository';
+import { AppError, errorKinds } from '@/utils/error-handling';
 import bcrypt from 'bcrypt';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';

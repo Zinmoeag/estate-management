@@ -1,6 +1,7 @@
-import AppConfig, { Configs } from '@config/env/app-config';
-import customEnvironment from '@config/env/custom-env';
 import dotenv from 'dotenv';
+
+import AppConfig, { Configs } from '@/config/env/app-config';
+import customEnvironment from '@/config/env/custom-env';
 
 import { JobWorker } from './worker';
 import Worker from './worker/workers/worker.interface';

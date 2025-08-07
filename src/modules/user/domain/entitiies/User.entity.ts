@@ -1,4 +1,4 @@
-import { AppError } from '@utils/error-handling';
+import { AppError } from '@/utils/error-handling';
 
 interface UserParams {
   createdAt: Date;

@@ -1,7 +1,7 @@
-import { prisma } from '@libs/prismaClients';
-import { Permission } from '@modules/user/domain/entitiies/Permission';
-import { IPermissionRepository } from '@modules/user/domain/repositories/IPermissionRepository';
-import { AppError, catchErrorAsync, errorKinds } from '@utils/error-handling';
+import { prisma } from '@/libs/prismaClients';
+import { Permission } from '@/modules/user/domain/entitiies/Permission';
+import { IPermissionRepository } from '@/modules/user/domain/repositories/IPermissionRepository';
+import { AppError, catchErrorAsync, errorKinds } from '@/utils/error-handling';
 
 export class PermissionRepository implements IPermissionRepository {
   async getAll(): Promise<Permission[]> {

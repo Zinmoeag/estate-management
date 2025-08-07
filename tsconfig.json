@@ -14,16 +14,13 @@
     "baseUrl": ".", // Required for path aliases
     "skipLibCheck": true, // Skip type-checking of library files
     "paths": {
-      // Define path aliases
-      "@utils/*": ["src/utils/*"],
-      "@libs/*": ["src/libs/*"],
-      "@modules/*": ["src/modules/*"],
-      "@app/*": ["src/app/*"],
-      "@config/*": ["src/config/*"],
-      "@routes/*": ["src/routes/*"],
-      "@middlewares/*": ["src/middlewares/*"],
-      "@helpers/*": ["src/app/helpers/*"]
+      "@/*": ["src/*"]
     }
+  },
+  "ts-node": {
+    // Configuration for ts-node
+    "transpileOnly": true, // Speeds up development
+    "require": ["tsconfig-paths/register"] // Enable path aliases in ts-node
   },
   "include": ["src/**/*.ts", "src/**/*.js"],
   "exclude": ["node_modules", "dist", "tests"]

@@ -1,5 +1,5 @@
-import { IPermissionRepository } from '@modules/user/domain/repositories/IPermissionRepository';
-import { AppError, catchErrorAsync } from '@utils/error-handling';
+import { IPermissionRepository } from '@/modules/user/domain/repositories/IPermissionRepository';
+import { AppError, catchErrorAsync } from '@/utils/error-handling';
 
 interface PermissionCheckInput {
   action: string;

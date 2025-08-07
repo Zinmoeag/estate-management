@@ -1,8 +1,8 @@
-import { GetUserListParamType } from '@modules/user/api/params/getUserlistParamSchema';
-import { GetAllRequestType } from '@modules/user/domain/repositories';
-import { UserRepository } from '@modules/user/infrastructures/repositories/UserRepository';
-import { catchErrorAsync } from '@utils/error-handling';
-import Pagination from '@utils/pagination/Pagination';
+import { GetUserListParamType } from '@/modules/user/api/params/getUserlistParamSchema';
+import { GetAllRequestType } from '@/modules/user/domain/repositories';
+import { UserRepository } from '@/modules/user/infrastructures/repositories/UserRepository';
+import { catchErrorAsync } from '@/utils/error-handling';
+import Pagination from '@/utils/pagination/Pagination';
 
 import { UserDTO } from '../dtos/UserDTO';
 

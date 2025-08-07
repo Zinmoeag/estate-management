@@ -1,7 +1,7 @@
-import { LogoutUseCase } from '@modules/user/applications/usecase/auth/LogoutUseCase';
-import { RegisterUseCase } from '@modules/user/applications/usecase/auth/RegisterUseCase';
-import { AuthRepository } from '@modules/user/infrastructures/repositories/AuthRepository';
-import { AppError, catchErrorAsync, errorKinds } from '@utils/error-handling';
+import { LogoutUseCase } from '@/modules/user/applications/usecase/auth/LogoutUseCase';
+import { RegisterUseCase } from '@/modules/user/applications/usecase/auth/RegisterUseCase';
+import { AuthRepository } from '@/modules/user/infrastructures/repositories/AuthRepository';
+import { AppError, catchErrorAsync, errorKinds } from '@/utils/error-handling';
 import { NextFunction, Request, Response } from 'express';
 
 // import { AuthRepository } from 'modules/user/infrastructures/repositories/AuthRepository';

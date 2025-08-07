@@ -1,11 +1,11 @@
-import { prisma } from '@libs/prismaClients';
-import { User } from '@modules/user/domain/entitiies/User.entity';
+import { prisma } from '@/libs/prismaClients';
+import { User } from '@/modules/user/domain/entitiies/User.entity';
 import {
   GetAllRequestType,
   GetUserListReturnType,
   IUserRepository,
-} from '@modules/user/domain/repositories';
-import { AppError, catchErrorAsync } from '@utils/error-handling';
+} from '@/modules/user/domain/repositories';
+import { AppError, catchErrorAsync } from '@/utils/error-handling';
 
 export class UserRepository implements IUserRepository {
   async create(data: any): Promise<User> {

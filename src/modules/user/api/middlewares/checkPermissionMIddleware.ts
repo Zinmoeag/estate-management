@@ -1,6 +1,6 @@
-import { CheckRolePermission } from '@modules/user/applications/usecase/auth/CheckRolePermission';
-import { PermissionRepository } from '@modules/user/infrastructures/repositories/PermissionRepository';
-import { AppError, errorKinds } from '@utils/error-handling';
+import { CheckRolePermission } from '@/modules/user/applications/usecase/auth/CheckRolePermission';
+import { PermissionRepository } from '@/modules/user/infrastructures/repositories/PermissionRepository';
+import { AppError, errorKinds } from '@/utils/error-handling';
 import { NextFunction, Request, Response } from 'express';
 
 const checkPermissionUseCase = new CheckRolePermission(

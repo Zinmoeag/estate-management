@@ -1,6 +1,6 @@
-import { IAuthRepository } from '@modules/user/domain/repositories/IAuthRepository';
-import { generateTokens } from '@utils/auth/auth.service';
-import { AppError } from '@utils/error-handling';
+import { IAuthRepository } from '@/modules/user/domain/repositories/IAuthRepository';
+import { generateTokens } from '@/utils/auth/auth.service';
+import { AppError } from '@/utils/error-handling';
 import bcrypt from 'bcrypt';
 
 export class LoginUseCase {
