@@ -1,23 +1,25 @@
-import * as dotenv from 'dotenv';
-dotenv.config();
-
-import Bootstrap from '@/app/bootstrap';
-Bootstrap.init();
-
-import '@/app/config/passport.config';
-import 'reflect-metadata';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import * as dotenv from 'dotenv';
 import express from 'express';
 import passport from 'passport';
 
-import AppConfig from '@/app/config/app.config';
-import jobQueue from '@/app/worker/queues/jobQueue';
-import router from '@/routes/index';
+import AppConfig from './app/config/app.config';
 
-const app = express();
+import 'reflect-metadata';
+
+dotenv.config();
+
+import Bootstrap from '@/app/bootstrap';
+
+import router from './routes';
+Bootstrap.init();
+
+// import '@/app/config/passport.config';
+
 const port = AppConfig.getConfig('PORT');
+const app = express();
 
 app.use((req, res, next) => {
   console.log('--- Incoming Request Info ---');
@@ -29,12 +31,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/healthcheck', async (req, res) => {
-  await jobQueue.add('generatePDF', { hello: 'world' });
-  res.sendStatus(200);
-});
-
 app.use(passport.initialize());
+
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());

@@ -1,11 +1,12 @@
+import { Router } from 'express';
+import passport from 'passport';
+
 import validationMiddleware from '@/middlewares/validationMiddleware';
 import { AuthController } from '@/modules/user/api/controllers/AuthController';
 import {
   LoginSchema,
   RegisterSchema,
 } from '@/modules/user/api/middlewares/authValidation';
-import { Router } from 'express';
-import passport from 'passport';
 
 const authController = new AuthController();
 
@@ -19,9 +20,9 @@ authRouter.post(
 
 authRouter.post(
   '/login',
-  validationMiddleware.validateRequestBody(LoginSchema),
-  passport.authenticate('local', { session: false }),
-  authController.login
+  validationMiddleware.validateRequestBody(LoginSchema)
+  // passport.authenticate('local', { session: false })
+  // authController.login
 );
 
 authRouter.post(

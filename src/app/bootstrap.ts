@@ -4,6 +4,7 @@ import AppConfig, { Configs } from '@/app/config/app.config';
 import customEnvironment from '@/app/config/env/custom-env';
 import { AppError, catchError, errorKinds } from '@/utils/error-handling';
 
+import { PassportConfig } from './config/passport/passport.config';
 import { JobWorker } from './worker';
 import Worker from './worker/workers/worker.interface';
 
@@ -16,36 +17,38 @@ class Bootstrap {
    */
   private static workers: Worker[] = [JobWorker];
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  private constructor() {}
+  private constructor() {
+    // env load
+    dotenv.config();
+    // Register configuration
+    const [error] = catchError(() =>
+      AppConfig.register(
+        Object.fromEntries(
+          Object.entries(customEnvironment).map(([key, value]) => {
+            // env load
+            if (value === undefined) {
+              throw AppError.new(
+                errorKinds.internalServerError,
+                `env load error: ${key} is undefined`
+              );
+            }
+            return [key, String(value)];
+          })
+        ) as Configs
+      )
+    );
+    if (error) AppError.new(errorKinds.internalServerError, 'env load error');
+  }
 
-  static async init() {
+  static init() {
     if (!this._instance) {
       this._instance = new Bootstrap();
 
-      dotenv.config();
-
-      // Register configuration
-      const [error] = catchError(() =>
-        AppConfig.register(
-          Object.fromEntries(
-            Object.entries(customEnvironment).map(([key, value]) => {
-              // env load
-              if (value === undefined) {
-                throw AppError.new(
-                  errorKinds.internalServerError,
-                  `env load error: ${key} is undefined`
-                );
-              }
-              return [key, String(value)];
-            })
-          ) as Configs
-        )
-      );
-      if (error) AppError.new(errorKinds.internalServerError, 'env load error');
+      // passport config
+      PassportConfig.initialize();
 
       // initailize worker
-      await Promise.all(this.workers.map((worker) => worker.run()));
+      Promise.all(this.workers.map((worker) => worker.run()));
     }
     return this._instance;
   }

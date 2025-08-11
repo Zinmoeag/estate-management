@@ -1,9 +1,11 @@
+import { NextFunction, Request, Response } from 'express';
+
 import { LogoutUseCase } from '@/modules/user/applications/usecase/auth/LogoutUseCase';
 import { RegisterUseCase } from '@/modules/user/applications/usecase/auth/RegisterUseCase';
 import { AuthRepository } from '@/modules/user/infrastructures/repositories/AuthRepository';
 import { AppError, catchErrorAsync, errorKinds } from '@/utils/error-handling';
-import { NextFunction, Request, Response } from 'express';
 
+import { AuthUserDTO } from '../dtos/AuthUserDTO';
 // import { AuthRepository } from 'modules/user/infrastructures/repositories/AuthRepository';
 import { LoginUseCase } from './../../applications/usecase/auth/LoginUseCase';
 import { RefreshAccessTokenUseCase } from './../../applications/usecase/auth/RefreshAccessTokenUseCase';
@@ -40,14 +42,12 @@ export class AuthController {
   }
 
   async login(req: Request, res: Response, next: NextFunction) {
-    const { email, password } = req.body;
-    console.log('Login', req.body);
+    console.log('req.user ===>', req.user);
     const loginUseCase = new LoginUseCase(new AuthRepository());
 
     const [error, result] = await catchErrorAsync(
-      loginUseCase.execute({ email, password })
+      loginUseCase.execute(req.user as AuthUserDTO)
     );
-    console.log(result);
 
     if (error) {
       next(error);

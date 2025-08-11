@@ -11,6 +11,10 @@ class AppConfig {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
 
+  static getAllConfigs(): Partial<Configs> {
+    return this.configs;
+  }
+
   static getConfig<K extends ConfigKeys>(key: K): string {
     if (key === undefined || !(key in this.configs)) {
       throw new Error(`Invalid config key: ${key}`);
@@ -27,7 +31,6 @@ class AppConfig {
       }
       this.configs[key as ConfigKeys] = value;
     });
-
     return this;
   }
 

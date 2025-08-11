@@ -1,10 +1,7 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
 
+import ENV from '@/app/config/env/custom-env';
 import { AppError, errorKinds } from '@/utils/error-handling';
-
-import ENV from '../../app/config/env/custom-env';
-
-console.log(ENV);
 
 export const ACCESS_TOKEN_PRIVATE_KEY = Buffer.from(
   ENV.ACCESS_TOKEN_PRIVATE_KEY!,
