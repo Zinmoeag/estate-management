@@ -4,7 +4,7 @@
   "main": "./src/server.ts",
   "scripts": {
     "build": "rimraf ./dist && tsc && npx tsc-alias",
-    "start": "cross-env NODE_ENV=production && npm run build && node dist/server.js",
+    "start": "npm run build && cross-env NODE_ENV=production node dist/server.js",
     "dev": "tsx watch --env-file=.env.development ./src/server.ts"
   },
   "prisma": {
@@ -30,6 +30,7 @@
     "multer": "^2.0.1",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
+    "passport-jwt-cookiecombo": "^1.0.5",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.2.2",
     "rimraf": "^6.0.1",

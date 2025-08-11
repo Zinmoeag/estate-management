@@ -6,7 +6,10 @@ export class LoginUseCase {
   // eslint-disable-next-line no-unused-vars
   constructor(private readonly authRepository: IAuthRepository) {}
 
-  async execute(params: AuthUserDTO) {
+  async execute(params: AuthUserDTO): Promise<{
+    accessToken: string;
+    refreshToken: string;
+  }> {
     const accessToken = JwtService.signToken(
       'ACCESS_TOKEN_PRIVATE_KEY',
       params,
@@ -22,6 +25,6 @@ export class LoginUseCase {
       }
     );
 
-    return { accessToken: 'd', refreshToken: 'd' };
+    return { accessToken, refreshToken };
   }
 }

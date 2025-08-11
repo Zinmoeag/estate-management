@@ -35,18 +35,17 @@ export class AuthController {
   // eslint-disable-next-line no-unused-vars
   async getUser(req: Request, res: Response, next: NextFunction) {
     const user = req.user;
-
     if (!user) throw AppError.new(errorKinds.notAuthorized, 'Unauthorized');
 
     res.status(200).json(user);
   }
 
   async login(req: Request, res: Response, next: NextFunction) {
-    console.log('req.user ===>', req.user);
     const loginUseCase = new LoginUseCase(new AuthRepository());
-
     const [error, result] = await catchErrorAsync(
-      loginUseCase.execute(req.user as AuthUserDTO)
+      loginUseCase.execute({
+        ...(req.user as AuthUserDTO),
+      })
     );
 
     if (error) {
@@ -54,12 +53,28 @@ export class AuthController {
       return;
     }
 
-    // const result = await loginUseCase.execute({ email, password });
-
     if (!result)
       return next(AppError.new(errorKinds.badRequest, 'Login failed'));
 
-    res.status(200).json(result);
+    res.cookie('__Secure-accessToken', result.accessToken, {
+      httpOnly: true,
+      maxAge: 15 * 60 * 1000,
+      path: '/',
+      sameSite: 'none',
+      secure: true,
+    });
+
+    res.cookie('__Secure-refreshToken', result.refreshToken, {
+      httpOnly: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: '/',
+      sameSite: 'none',
+      secure: true,
+    });
+
+    res.status(200).json({
+      message: 'Login success',
+    });
   }
 
   // eslint-disable-next-line no-unused-vars

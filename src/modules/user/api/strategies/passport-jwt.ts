@@ -1,5 +1,5 @@
 import passport from 'passport';
-import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
+import { Strategy as JwtStrategy } from 'passport-jwt';
 
 import { AuthRepository } from '@/modules/user/infrastructures/repositories/AuthRepository';
 import { ACCESS_TOKEN_PUBLIC_KEY } from '@/utils/auth/jwt';
@@ -8,16 +8,25 @@ import { AuthUserDTO } from '../dtos/AuthUserDTO';
 
 const authRepository = new AuthRepository();
 
+const cookieExtractor = (req: any): null | string => {
+  let token: null | string = null;
+  if (req?.cookies) {
+    token = req.cookies['__Secure-accessToken'];
+  }
+  return token;
+};
+
 export default passport.use(
   'access-jwt',
   new JwtStrategy(
     {
       algorithms: ['RS256'],
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: cookieExtractor,
       secretOrKey: ACCESS_TOKEN_PUBLIC_KEY,
     },
     async (jwt_payload, done) => {
       try {
+        console.log(jwt_payload, 'jwt_payload ==>');
         const user = await authRepository.findById(jwt_payload.id);
 
         if (!user) {

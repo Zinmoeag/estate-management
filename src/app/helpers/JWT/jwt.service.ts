@@ -30,6 +30,7 @@ class JwtService {
 
   static getToken(key: TokenKeys) {
     try {
+      console.log(AppConfig.getAllConfigs(), 'dddd ===>');
       return this[key];
 
       // eslint-disable-next-line no-unused-vars
@@ -43,13 +44,11 @@ class JwtService {
 
   static signToken(key: PrivateKey, payload: any, options?: SignOptions) {
     try {
-      console.log('payload ===>', this.getToken(key));
       const token = jwt.sign(payload, this.getToken(key), {
         ...(options && options),
         algorithm: 'RS256',
       });
       return token;
-
       // eslint-disable-next-line no-unused-vars
     } catch (error) {
       throw AppError.new(

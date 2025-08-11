@@ -20,9 +20,9 @@ authRouter.post(
 
 authRouter.post(
   '/login',
-  validationMiddleware.validateRequestBody(LoginSchema)
-  // passport.authenticate('local', { session: false })
-  // authController.login
+  validationMiddleware.validateRequestBody(LoginSchema),
+  passport.authenticate('local', { session: false }),
+  authController.login
 );
 
 authRouter.post(
